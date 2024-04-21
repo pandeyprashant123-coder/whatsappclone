@@ -1,14 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 
 const PREFIX = "whats-clone-";
 
-const useLocalStorage = (key: string, initialValue: ()=>void) => {
+const useLocalStorage = (key: string, initialValue: any) => {
   const prefixedKey = PREFIX + key;
   const [value, setValue] = useState(() => {
     
     if(typeof window !== 'undefined'){
-    const jsonValue = localStorage.getItem(prefixedKey)||'""';
+    const jsonValue = localStorage.getItem(prefixedKey);
     if (jsonValue && jsonValue !== 'undefined') return JSON.parse(jsonValue);
     if (typeof initialValue === "function") {
       return initialValue();
