@@ -99,7 +99,7 @@ export const ConversationsProvider = ({
     },
     [setConversations]
   );
-  console.log(socket, "socket2");
+  // console.log(socket, "socket2");
 
   useEffect(() => {
     if (socket == null) return;
