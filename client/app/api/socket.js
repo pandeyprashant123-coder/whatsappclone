@@ -37,6 +37,7 @@ const corsMiddleware = cors();
 // })
 
 export default function SocketHandler(req, res) {
+  console.log("hwy");
   if (res.socket.server.io) {
     console.log("Socket is already running");
     res.end();
@@ -51,9 +52,9 @@ export default function SocketHandler(req, res) {
     console.log(socket, "hi");
     const id = socket.handshake.query.id;
     socket.join(id);
-    socket.on("send-message", ({ recipents, text }) => {
-      recipents.forEach((recipient) => {
-        const newRecipients = recipents.filter((r) => r !== recipient);
+    socket.on("send-message", ({ recipients, text }) => {
+      recipients.forEach((recipient) => {
+        const newRecipients = recipients.filter((r) => r !== recipient);
         newRecipients.push(id);
         socket.broadcast.to(recipient).emit("receive-message", {
           recipients: newRecipients,

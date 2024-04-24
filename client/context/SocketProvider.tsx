@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import type { Socket } from "socket.io-client";
 
 const SocketContext = createContext<Socket>(null!);
-let socket: Socket;
+let newSocket: Socket;
 export const useSocket = () => {
   return useContext(SocketContext);
 };
@@ -15,16 +15,22 @@ const SocketProvider = ({
   children?: React.ReactNode;
   id: string;
 }) => {
-  // const [socket, setSocket] = useState<Socket>(null!);
+  const [socket, setSocket] = useState<Socket>(null!);
   useEffect(() => {
     connectSocket();
+    // const newSocket = io("http://localhost:5000", { query: { id } });
+    // setSocket(newSocket);
+    // return () => {
+    //   socket.close();
+    // };
   }, [id]);
   async function connectSocket() {
     await fetch("/api/socket");
-    socket = io("/", { path: "/api/socket", query: { id } });
-    socket.on("connect", () => {
+    newSocket = io("/", { path: "/api/socket", query: { id } });
+    newSocket.on("connect", () => {
       console.log("connected");
     });
+    setSocket(newSocket);
   }
   console.log(socket, "socket");
   return (
