@@ -2,13 +2,11 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { createContext, useContext } from "react";
 
 type Contact = {
-  objArr: {
-    id: string;
-    name: string;
-  }[];
+  id: string;
+  name: string;
 };
 type ContactContextType = {
-  contacts: Contact;
+  contacts: Contact[];
   createContact: (id: string, name: string) => void;
 };
 const ContactsContext = createContext<ContactContextType>(null!);

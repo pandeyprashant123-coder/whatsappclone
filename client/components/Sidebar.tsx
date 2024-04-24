@@ -42,15 +42,7 @@ const Sidebar = ({ id }: { id: String }) => {
           </button>
         </nav>
         <div className="border-r-2 grow overflow-auto">
-          {activeKey == CONVERSATIONS_KEY ? (
-            <div>
-              <Conversations />
-            </div>
-          ) : (
-            <div>
-              <Contacts />
-            </div>
-          )}
+          {activeKey == CONVERSATIONS_KEY ? <Conversations /> : <Contacts />}
         </div>
         <div className="border-t-2 border-r-2 p-3">
           Your Id: <span className="text-gray-500">{id}</span>
