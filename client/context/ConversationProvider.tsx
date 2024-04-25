@@ -1,4 +1,3 @@
-"use client";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import React, {
   createContext,
