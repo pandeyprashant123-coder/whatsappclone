@@ -1,3 +1,4 @@
+"use client";
 import { useConversations } from "@/context/ConversationProvider";
 import React, { useCallback } from "react";
 

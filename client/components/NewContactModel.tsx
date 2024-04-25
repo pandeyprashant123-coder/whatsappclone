@@ -1,3 +1,4 @@
+"use client";
 import { useContacts } from "@/context/ContactProvider";
 import React, { useRef } from "react";
 import { ImCross } from "react-icons/im";
