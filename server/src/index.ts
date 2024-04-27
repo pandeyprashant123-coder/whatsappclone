@@ -1,9 +1,13 @@
 import { Server } from "socket.io";
 import { createServer } from "http";
 import express, {Request, Response} from "express";
+import cors from 'cors'
 
 const app = express();
 const httpServer = createServer(app);
+const port = process.env.PORT || 5000;
+
+app.use(cors())
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
@@ -36,6 +40,6 @@ io.on("connection", (socket) => {
   }
 });
 
-httpServer.listen(5000, () => {
-  console.log("server listening on port 5000");
+httpServer.listen(port, () => {
+  console.log(`Server is listening on port ${port}...`)
 });
