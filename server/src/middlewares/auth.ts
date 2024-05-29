@@ -5,19 +5,19 @@ dotenv.config();
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || '';
 
-export const auth = async(req:Request,res:Response,next:Function)=>{
+export const auth = (req:Request,res:Response,next:Function)=>{
     try {
-        const token = req.headers.authorization?.split(' ')[1]
-        const isCostumAuth = token.length<500;
-        let decodedData;
-        if(token && isCostumAuth){
-            decodedData = jwt.verify(token,ACCESS_TOKEN_SECRET);
-            req.userId = decodedData?.id;
-        }else{
-            decodedData = jwt.decode(token);
-            req.userId = decodedData?.sub;
+        const authorizationHeaderValue = req.headers.authorization;
+        req.body.user = null;
+        if(!authorizationHeaderValue || !authorizationHeaderValue.startsWith('Bearer')){
+            return next();
         }
+        const token = authorizationHeaderValue!.split('Bearer ')[1]
+        if(!token) return null
+        const user = jwt.verify(token,ACCESS_TOKEN_SECRET);
+        req.body.user = user;
+        return next();
     } catch (error) {
-        
+        console.log(error)
     }
 }
